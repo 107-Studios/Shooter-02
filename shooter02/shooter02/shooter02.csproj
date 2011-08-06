@@ -112,7 +112,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Threading\ChangeBuffer.cs" />
+    <Compile Include="Threading\ChangeMessage.cs" />
+    <Compile Include="Threading\ChangeMessageType.cs" />
     <Compile Include="Threading\DoubleBuffer.cs" />
+    <Compile Include="Threading\RenderData.cs" />
+    <Compile Include="Threading\UpdateData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

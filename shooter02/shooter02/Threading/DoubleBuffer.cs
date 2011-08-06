@@ -88,6 +88,9 @@ namespace shooter02.Threading
             // wait for the green light
             m_UpdateFrameStart.WaitOne();
 
+            // ensure data is pushed to memory
+            Thread.MemoryBarrier();
+
             // get the current update buffer
             updateBuffer = m_arrbuffers[m_nCurrentUpdateBuffer];
 
@@ -100,6 +103,9 @@ namespace shooter02.Threading
             // wait for the green light
             m_RenderFrameStart.WaitOne();
 
+            // ensure data is pushed to memory
+            Thread.MemoryBarrier();
+
             // get the current render Buffer
             renderBuffer = m_arrbuffers[m_nCurrentRenderBuffer];
 
@@ -109,12 +115,18 @@ namespace shooter02.Threading
 
         public void SubmitUpdate()
         {
+            // ensure data is pushed to memory
+            Thread.MemoryBarrier();
+
             // signal that updating is done
             m_UpdateFrameEnd.Set();
         }
 
         public void SubmitRender()
         {
+             // ensure data is pushed to memory
+            Thread.MemoryBarrier();
+
             // signal that rendering is done
             m_RenderFrameEnd.Set();
         }
