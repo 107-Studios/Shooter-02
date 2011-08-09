@@ -116,7 +116,9 @@
     <Compile Include="Threading\ChangeMessageType.cs" />
     <Compile Include="Threading\DoubleBuffer.cs" />
     <Compile Include="Threading\RenderData.cs" />
+    <Compile Include="Threading\RenderManager.cs" />
     <Compile Include="Threading\UpdateData.cs" />
+    <Compile Include="Threading\UpdateManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
