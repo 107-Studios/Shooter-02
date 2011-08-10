@@ -6,30 +6,11 @@ using Microsoft.Xna.Framework;
 
 namespace shooter02.Interfaces
 {
-    interface GameState
+    public interface GameState
     {
-        private string m_szStateName;
-
-        public GameState()
-        {
-            m_szStateName = "";
-        }
-
-        public void EnterState()
-        {
-        }
-
-        public void ExitState()
-        {
-        }
-
-        public bool Update(GameTime gameTime)
-        {
-            return true;
-        }
-
-        public void Render()
-        {
-        }
+        void EnterState();
+        void ExitState();
+        bool Update(GameTime gameTime);
+        void Render();
     }
 }
