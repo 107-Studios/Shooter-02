@@ -11,5 +11,11 @@ namespace shooter02.Threading
         // TODO: replace this with our render data
         public Vector3 color;
         public Matrix worldMatrix;
+
+        public RenderData()
+        {
+            this.color = Vector3.Zero;
+            this.worldMatrix = Matrix.Identity;
+        }
     }
 }
