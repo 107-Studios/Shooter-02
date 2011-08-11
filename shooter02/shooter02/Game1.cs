@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using shooter02.Threading;
 using shooter02.Managers;
 using shooter02.GameStates;
+using IndependentResolutionRendering;
 
 namespace shooter02
 {
@@ -21,7 +22,7 @@ namespace shooter02
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        
         StateManager stateManager = StateManager.Instance;
 
         public Game1()
@@ -39,8 +40,7 @@ namespace shooter02
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            stateManager.Initialize(this);
-            stateManager.PushState(GamePlayState.Instance);
+            Resolution.Init(ref graphics);
 
             base.Initialize();
         }
@@ -53,7 +53,14 @@ namespace shooter02
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            stateManager.Initialize(this, spriteBatch, this.Content);
+            stateManager.PushState(GamePlayState.Instance);
 
+            // TODO: load in game save
+
+            // set resolution
+            Resolution.SetVirtualResolution(1280, 720);
+            Resolution.SetResolution(800, 600, false);
         }
 
         /// <summary>
@@ -90,7 +97,7 @@ namespace shooter02
         protected override void Draw(GameTime gameTime)
         {
             //clear screen
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            //GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
             base.Draw(gameTime);

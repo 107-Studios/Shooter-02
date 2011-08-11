@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using shooter02.Interfaces;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using IndependentResolutionRendering;
+using Microsoft.Xna.Framework.Content;
 
 namespace shooter02.Managers
 {
@@ -28,6 +31,24 @@ namespace shooter02.Managers
             }
         }
 
+        private SpriteBatch spriteBatch = null;
+        public SpriteBatch SpriteBatchInstance
+        {
+            get
+            {
+                return spriteBatch;
+            }
+        }
+
+        private ContentManager contentManager = null;
+        public ContentManager ContentManagerInstance
+        {
+            get
+            {
+                return contentManager;
+            }
+        }
+
         //singleton data members
         private List<GameState> m_vStates;
 
@@ -36,9 +57,11 @@ namespace shooter02.Managers
             m_vStates = new List<GameState>();
         }
 
-        public void Initialize(Game game)
+        public void Initialize(Game game, SpriteBatch spriteBatch, ContentManager contentManager)
         {
             this.game = game;
+            this.spriteBatch = spriteBatch;
+            this.contentManager = contentManager;
         }
 
         public void EnterState(GameState newState)
@@ -64,17 +87,34 @@ namespace shooter02.Managers
             if (0 == m_vStates.Count)
                 return false;
 
+            //clear screen
+            spriteBatch.GraphicsDevice.Clear(Color.Black);
+
+            Resolution.BeginDraw();
+
+            spriteBatch.Begin(SpriteSortMode.Immediate,
+                                BlendState.AlphaBlend,
+                                SamplerState.LinearClamp,
+                                null,
+                                null,
+                                null,
+                                Resolution.getTransformationMatrix());
+
             bool bNews = true;
             foreach (GameState item in m_vStates)
             {
                 bNews = item.Update(gameTime);
 
                 if (false == bNews)
+                {
+                    spriteBatch.End();
                     return bNews;
+                }
 
                 item.Render(gameTime);
             }
 
+            spriteBatch.End();
             return bNews;
         }
 

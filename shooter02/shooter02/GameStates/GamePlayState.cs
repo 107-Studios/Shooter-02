@@ -6,6 +6,7 @@ using shooter02.Interfaces;
 using shooter02.Threading;
 using shooter02.Managers;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace shooter02.GameStates
 {
