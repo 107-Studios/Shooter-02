@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using shooter02.Threading;
+using shooter02.Managers;
+using shooter02.GameStates;
 
 namespace shooter02
 {
@@ -20,12 +22,7 @@ namespace shooter02
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        // the following fields are for threading purposes
-        //{
-            DoubleBuffer doubleBuffer;
-            RenderManager renderManager;
-            UpdateManager updateManager;
-        //}
+        StateManager stateManager = StateManager.Instance;
 
         public Game1()
         {
@@ -42,6 +39,8 @@ namespace shooter02
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            stateManager.Initialize(this);
+            stateManager.PushState(GamePlayState.Instance);
 
             base.Initialize();
         }
@@ -55,16 +54,6 @@ namespace shooter02
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
-            doubleBuffer = new DoubleBuffer();
-            renderManager = new RenderManager(doubleBuffer, this);
-            updateManager = new UpdateManager(doubleBuffer, this);
-
-            // TODO: load game object's "update/render data" to both the update/render managers
-
-
-            // when finished loading objects, start the update thread
-            updateManager.StartOnNewThread();
         }
 
         /// <summary>
@@ -87,8 +76,10 @@ namespace shooter02
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
+            // run stateManager's states
+            stateManager.RunState(gameTime);
 
+            // TODO: Add your update logic here
             base.Update(gameTime);
         }
 
@@ -98,28 +89,18 @@ namespace shooter02
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            // signal update thread to start
-            doubleBuffer.GlobalStartFrame(gameTime);
             //clear screen
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            renderManager.DoFrame();
-
             base.Draw(gameTime);
 
-            //wait for update thread to finish and signal a new frame will begin soon
-            doubleBuffer.GlobalSync();
         }
 
         protected override void OnExiting(object sender, EventArgs args)
         {
+            stateManager.ClearStates();
             base.OnExiting(sender, args);
-            
-            // take care of threading garbage
-            doubleBuffer.CleanUp();
-            if (updateManager.RunningThread != null)
-                updateManager.RunningThread.Abort();
         }
     }
 }

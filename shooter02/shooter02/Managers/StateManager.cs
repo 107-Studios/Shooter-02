@@ -11,12 +11,20 @@ namespace shooter02.Managers
     {
 
         private static readonly StateManager instance = new StateManager();
-
         public static StateManager Instance
         {
             get
             {
                 return instance;
+            }
+        }
+
+        private Game game = null;
+        public Game GameInstance
+        {
+            get
+            {
+                return game;
             }
         }
 
@@ -26,6 +34,11 @@ namespace shooter02.Managers
         private StateManager()
         {
             m_vStates = new List<GameState>();
+        }
+
+        public void Initialize(Game game)
+        {
+            this.game = game;
         }
 
         public void EnterState(GameState newState)
@@ -59,7 +72,7 @@ namespace shooter02.Managers
                 if (false == bNews)
                     return bNews;
 
-                item.Render();
+                item.Render(gameTime);
             }
 
             return bNews;
@@ -117,6 +130,16 @@ namespace shooter02.Managers
 
             // remove state from stack
             m_vStates.RemoveAt(index);
+        }
+
+        public void ClearStates()
+        {
+            foreach (GameState item in m_vStates)
+            {
+                item.ExitState();
+            }
+
+            m_vStates.Clear();
         }
     }
 }

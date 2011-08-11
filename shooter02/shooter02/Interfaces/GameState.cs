@@ -11,6 +11,6 @@ namespace shooter02.Interfaces
         void EnterState();
         void ExitState();
         bool Update(GameTime gameTime);
-        void Render();
+        void Render(GameTime gameTime);
     }
 }
