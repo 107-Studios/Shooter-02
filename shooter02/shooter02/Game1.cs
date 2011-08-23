@@ -12,6 +12,7 @@ using shooter02.Threading;
 using shooter02.Managers;
 using shooter02.GameStates;
 using IndependentResolutionRendering;
+using shooter02.Misc;
 
 namespace shooter02
 {
@@ -57,10 +58,13 @@ namespace shooter02
             stateManager.PushState(GamePlayState.Instance);
 
             // TODO: load in game save
+            SaveInfo.Instance.Load();
 
             // set resolution
+            Vector2 saveGameRes = SaveInfo.Instance.ScreenResolution;
+
             Resolution.SetVirtualResolution(1280, 720);
-            Resolution.SetResolution(800, 600, false);
+            Resolution.SetResolution((int)saveGameRes.X, (int)saveGameRes.Y, false);
         }
 
         /// <summary>
@@ -79,9 +83,13 @@ namespace shooter02
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            KeyboardState keyboard = Keyboard.GetState();
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if ( keyboard.IsKeyDown(Keys.Escape) || GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            {
+                SaveInfo.Instance.Save();
                 this.Exit();
+            }
 
             // run stateManager's states
             stateManager.RunState(gameTime);
