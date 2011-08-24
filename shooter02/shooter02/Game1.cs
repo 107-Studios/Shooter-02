@@ -25,6 +25,7 @@ namespace shooter02
         SpriteBatch spriteBatch;
         
         StateManager stateManager = StateManager.Instance;
+        InputManager inputManager = InputManager.Instance;
 
         public Game1()
         {
@@ -83,19 +84,25 @@ namespace shooter02
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            KeyboardState keyboard = Keyboard.GetState();
+            // recieve up-to-date keyboard/gamepad states
+            inputManager.Update();
+
             // Allows the game to exit
-            if ( keyboard.IsKeyDown(Keys.Escape) || GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if ( inputManager.KeyPressed(Keys.Escape) || GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
             {
                 SaveInfo.Instance.Save();
                 this.Exit();
             }
+
 
             // run stateManager's states
             stateManager.RunState(gameTime);
 
             // TODO: Add your update logic here
             base.Update(gameTime);
+
+            // store this frame's input
+            inputManager.OnEndFrame();
         }
 
         /// <summary>
