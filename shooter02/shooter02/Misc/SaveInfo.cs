@@ -16,6 +16,7 @@ namespace shooter02.Misc
         // data members
         public int screenWidth;
         public int screenHeight;
+        public bool fullScreen;
     }
 
     class SaveInfo
@@ -49,11 +50,25 @@ namespace shooter02.Misc
             }
         }
 
+        public bool Fullscreen
+        {
+            get
+            {
+                return saveGameData.fullScreen;
+            }
+
+            set
+            {
+                saveGameData.fullScreen = value;
+            }
+        }
+
         // constructors
         private SaveInfo()
         {
             saveGameData.screenWidth = 1280;
             saveGameData.screenHeight = 720;
+            saveGameData.fullScreen = false;
         }
 
         // methods

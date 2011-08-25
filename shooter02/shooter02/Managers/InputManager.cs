@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework;
 
 namespace shooter02.Managers
 {
@@ -39,8 +40,8 @@ namespace shooter02.Managers
 
         // members
         // TODO: Gamepad Support
-        //private GamePadState PrevPadState;
-        //private GamePadState CurrPadState;
+        private GamePadState[] PrevPadState = new GamePadState[4];
+        private GamePadState[] CurrPadState = new GamePadState[4];
 
         private KeyboardState PrevKeyState;
         private KeyboardState CurrKeyState;
@@ -49,18 +50,28 @@ namespace shooter02.Managers
         private InputManager()
         {
             PrevKeyState = Keyboard.GetState();
+
+            for (int current = 0; current < 4; ++current)
+                PrevPadState[current] = GamePad.GetState((PlayerIndex)current);
         }
 
         // methods
         public void Update()
         {
             CurrKeyState = Keyboard.GetState();
+
+            for (int current = 0; current < 4; ++current)
+                CurrPadState[current] = GamePad.GetState((PlayerIndex)current);
         }
 
         public void OnEndFrame()
         {
            // update the previous state
            PrevKeyState = CurrKeyState;
+
+            for (int current = 0; current < 4; ++current)
+                PrevPadState[current] = CurrPadState[current];
+
         }
 
         public bool KeyPressed( Keys eKey )
@@ -113,6 +124,72 @@ namespace shooter02.Managers
             }
 
             // eKey is not being held down
+            return false;
+        }
+
+        public bool GamePadPress(PlayerIndex playerIndex, Buttons eButton)
+        {
+            // is the controller connected?
+            if (!CurrPadState[(int)playerIndex].IsConnected)
+                return false;
+
+            // is eButton being pressed now?
+            if (CurrPadState[(int)playerIndex].IsButtonDown(eButton))
+            {
+                // if eButton was not down last frame,
+                if (!PrevPadState[(int)playerIndex].IsButtonDown(eButton))
+                {
+                    // eButton has been pressed
+                    return true;
+                }
+            }
+
+            // eButton was not pressed
+            return false;
+        }
+
+        public bool GamePadReleased(PlayerIndex playerIndex, Buttons eButton)
+        {
+            // is the controller connected?
+            if (!CurrPadState[(int)playerIndex].IsConnected)
+                return false;
+
+            // is eButton down now?
+            if (GamePadPress(playerIndex, eButton))
+            {
+                // it hasn't been released yet
+                return false;
+            }
+            // was eButton down last frame?
+            else if (CurrPadState[(int)playerIndex].IsButtonDown(eButton))
+            {
+                // eButton was released this frame
+                return true;
+            }
+
+            // it hasn't been released yet
+            return false;
+
+        }
+
+        public bool GamePadDown(PlayerIndex playerIndex, Buttons eButton)
+        {
+            // is the controller connected?
+            if (!CurrPadState[(int)playerIndex].IsConnected)
+                return false;
+
+            // is eButton down now?
+            if (CurrPadState[(int)playerIndex].IsButtonDown(eButton))
+            {
+                // was eButton down last frame?
+                if (PrevPadState[(int)playerIndex].IsButtonDown(eButton))
+                {
+                    // eButton is being held down
+                    return true;
+                }
+            }
+
+            // eButton is not being held down
             return false;
         }
     }
