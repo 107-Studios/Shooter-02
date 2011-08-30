@@ -26,6 +26,25 @@ namespace shooter02.Managers
         }
     }
 
+    public class ButtonBindings
+    {
+        Buttons Shoot;
+        Buttons MoveLeft;
+        Buttons MoveRight;
+        Buttons MoveUp;
+        Buttons MoveDown;
+
+        // constructor
+        public ButtonBindings()
+        {
+            Shoot = Buttons.A;
+            MoveLeft = Buttons.DPadLeft;
+            MoveRight = Buttons.DPadRight;
+            MoveUp = Buttons.DPadUp;
+            MoveDown = Buttons.DPadDown;
+        }
+    }
+
     public sealed class InputManager
     {
         // static class setup
@@ -39,7 +58,6 @@ namespace shooter02.Managers
         }
 
         // members
-        // TODO: Gamepad Support
         private GamePadState[] PrevPadState = new GamePadState[4];
         private GamePadState[] CurrPadState = new GamePadState[4];
 
