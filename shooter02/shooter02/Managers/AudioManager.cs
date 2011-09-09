@@ -153,12 +153,12 @@ namespace shooter02.Managers
                 return true;
         }
 
-        private int AudioClipExists(string szFileName)
+        private int AudioClipExists(string szAssetName)
         {
             // iterate through each audio clip in DB
             for (int i = 0; i < m_vAudioClips.Count; i++)
             {
-                if (m_vAudioClips[i].soundEffect.Name == szFileName)
+                if (m_vAudioClips[i].soundEffect.Name == szAssetName)
                     return i;
             }
 

@@ -119,6 +119,7 @@
     <Compile Include="Managers\ShooterRender.cs" />
     <Compile Include="Managers\ShooterUpdater.cs" />
     <Compile Include="Managers\StateManager.cs" />
+    <Compile Include="Managers\TextureManager.cs" />
     <Compile Include="Misc\SaveInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
