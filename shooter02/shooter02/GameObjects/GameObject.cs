@@ -13,8 +13,6 @@ namespace shooter02.GameObjects
         protected UpdateData m_pUpdateData;
         protected RenderData m_pRenderData;
 
-        //protected Texture m_texImage;
-
         public CGameObject()
         {
             m_pUpdateData = new UpdateData();
@@ -26,9 +24,10 @@ namespace shooter02.GameObjects
 
         }
 
-        public void Render()
+        public void HandleCollision(CGameObject gameObject)
         {
-            
+
         }
+
     }
 }

@@ -12,8 +12,7 @@ namespace shooter02.Threading
         public Vector2 acceleration;
         public Vector2 velocity;
         public Vector2 position;
-        public Matrix rotation = Matrix.Identity;
-
+        public float fRotation;
 
         public UpdateData()
         {

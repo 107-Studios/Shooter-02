@@ -59,9 +59,12 @@ namespace shooter02.Managers
         /// <param name="vScale">scale factor for the texture</param>
         /// <param name="effect">Effects to apply to the texture</param>
         /// <param name="fLayerDepth">The depth of a layer in which the texture will be drawn</param>
-        public void DrawTexture(int nTexture, Vector2 vPosition, Nullable<Rectangle> rSourceRect, Color cColor, Vector2 vOrigin, Vector2 vScale, SpriteEffects effect, float fLayerDepth)
+        public void DrawTexture(int nTexture, Vector2 vPosition, Nullable<Rectangle> rSourceRect, Color cColor, float fRotation, Vector2 vOrigin, Vector2 vScale, SpriteEffects effect, float fLayerDepth)
         {
-            // TODO: Render stuff
+            // Make sure the nTexture is valid
+            // Render stuff
+            if (ValidIndex(nTexture))
+                StateManager.Instance.SpriteBatchInstance.Draw(m_vTextures[nTexture], vPosition, rSourceRect, cColor, fRotation, vOrigin, vScale, effect, fLayerDepth);
         }
 
         // helper functions

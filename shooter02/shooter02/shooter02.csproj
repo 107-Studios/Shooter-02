@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameObjects\GameObject.cs" />
+    <Compile Include="GameObjects\Player.cs" />
     <Compile Include="GameStates\GamePlayState.cs" />
     <Compile Include="GameStates\MainMenuState.cs" />
     <Compile Include="Interfaces\GameState.cs" />

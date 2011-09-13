@@ -20,7 +20,7 @@ namespace shooter02.Managers
         {
             foreach (RenderData item in RenderDataObjects)
             {
-             StateManager.Instance.SpriteBatchInstance.Draw(item.texture2D, item.position, item.color);           
+                // TODO: incorporate Texture manager into this
             }
             base.Draw(gameTime);
         }

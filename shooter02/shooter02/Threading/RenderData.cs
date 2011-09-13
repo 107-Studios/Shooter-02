@@ -11,15 +11,18 @@ namespace shooter02.Threading
     class RenderData
     {
         // TODO: replace this with our render data
-        public Color color;
         public Vector2 position;
-        public Texture2D texture2D;
+        public Vector2 center;
+        public Vector2 scale;
+        public int texture2D;
+        public Rectangle drawRectangle;
 
         public RenderData()
         {
-            this.color = Color.White;
+            this.drawRectangle = Rectangle.Empty;
             this.position = Vector2.Zero;
-            this.texture2D = null;
+            this.center = Vector2.Zero;
+            this.texture2D = -1;
         }
     }
 }
