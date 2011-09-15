@@ -18,9 +18,31 @@ namespace shooter02.Managers
 
         public override void Draw(GameTime gameTime)
         {
+            // Before we render, update the RenderData if needed
+            foreach (ChangeMessage msg in messageBuffer.Messages)
+            {
+                switch (msg.MessageType)
+                {
+                    case ChangeMessageType.UpdateCameraView:
+                        break;
+                    case ChangeMessageType.UpdateWorldMatrix:
+                        break;
+                    case ChangeMessageType.UpdateHighlightColor:
+                        break;
+                    case ChangeMessageType.CreateNewRenderData:
+                        break;
+                    case ChangeMessageType.DeleteRenderData:
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            // Now that we have all the RenderData updated, lets render!
             foreach (RenderData item in RenderDataObjects)
             {
-                // TODO: incorporate Texture manager into this
+                // Use the TextureManager to render the objects
+                TextureManager.Instance.DrawTexture(item.texture2D, item.position, item.drawRectangle, item.textureTint, item.rotation, item.center, item.scale, SpriteEffects.None, 0.0f);
             }
             base.Draw(gameTime);
         }

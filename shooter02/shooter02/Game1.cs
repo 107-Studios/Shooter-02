@@ -41,7 +41,7 @@ namespace shooter02
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            // Add your initialization logic here
             Resolution.Init(ref graphics);
             graphics.IsFullScreen = SaveInfo.Instance.Fullscreen;
 
@@ -59,7 +59,7 @@ namespace shooter02
             stateManager.Initialize(this, spriteBatch, this.Content);
             stateManager.PushState(GamePlayState.Instance);
 
-            // TODO: load in game save
+            // load in game save
             SaveInfo.Instance.Load();
 
             // set resolution
@@ -75,7 +75,7 @@ namespace shooter02
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+            // Unload any non ContentManager content here
         }
 
         /// <summary>
@@ -99,7 +99,6 @@ namespace shooter02
             // run stateManager's states
             stateManager.RunState(gameTime);
 
-            // TODO: Add your update logic here
             base.Update(gameTime);
 
             // store this frame's input
@@ -115,7 +114,7 @@ namespace shooter02
             //clear screen
             //GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            // Add your drawing code here
             base.Draw(gameTime);
 
         }

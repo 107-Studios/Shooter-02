@@ -19,12 +19,12 @@ namespace shooter02.GameObjects
             m_pRenderData = new RenderData();
         }
 
-        public void Update(float fTimeElapsed)
+        public virtual void Update(float fTimeElapsed)
         {
 
         }
 
-        public void HandleCollision(CGameObject gameObject)
+        public virtual void HandleCollision(CGameObject gameObject)
         {
 
         }

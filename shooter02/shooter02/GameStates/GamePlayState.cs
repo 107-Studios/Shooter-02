@@ -24,12 +24,11 @@ namespace shooter02.GameStates
 
         // singleton data members
 
-        // the following fields are for threading purposes
-        //{
+        /* the following fields are for threading purposes*/
         DoubleBuffer doubleBuffer;
         ShooterRender renderManager;
         ShooterUpdater updateManager;
-        //}
+        /*------------------------------------------------*/
 
         public void EnterState()
         {
@@ -38,7 +37,7 @@ namespace shooter02.GameStates
             renderManager = new ShooterRender(doubleBuffer, StateManager.Instance.GameInstance);
             updateManager = new ShooterUpdater(doubleBuffer, StateManager.Instance.GameInstance);
 
-            // TODO: load game object's "update/render data" to both the update/render managers
+            // load game object's "update/render data" to both the update/render managers
 
             // start the update function on a new thread
             updateManager.StartOnNewThread();
@@ -54,7 +53,6 @@ namespace shooter02.GameStates
 
         public bool Update(GameTime gameTime)
         {
-            // TODO: Input
 
             return true;
         }
