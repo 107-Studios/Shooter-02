@@ -24,6 +24,7 @@ namespace shooter02.Threading
             this.drawRectangle = Rectangle.Empty;
             this.position = Vector2.Zero;
             this.center = Vector2.Zero;
+            this.scale = Vector2.Zero;
             this.texture2D = -1;
             this.textureTint = Color.White;
             this.rotation = 0.0f;

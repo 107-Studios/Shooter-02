@@ -19,6 +19,7 @@ namespace shooter02.Threading
             acceleration = Vector2.Zero;
             velocity = Vector2.Zero;
             position = Vector2.Zero;
+            fRotation = 0.0f;
         }
     }
 }
