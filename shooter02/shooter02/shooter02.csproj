@@ -112,7 +112,10 @@
   <ItemGroup>
     <Compile Include="GameObjects\BaseWeapon.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
+    <Compile Include="GameObjects\LaserShot.cs" />
     <Compile Include="GameObjects\Player.cs" />
+    <Compile Include="GameObjects\RicochetShot.cs" />
+    <Compile Include="GameObjects\SpreadShot.cs" />
     <Compile Include="GameStates\GamePlayState.cs" />
     <Compile Include="GameStates\MainMenuState.cs" />
     <Compile Include="Interfaces\GameState.cs" />

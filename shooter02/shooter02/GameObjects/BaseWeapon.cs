@@ -5,9 +5,15 @@ using System.Text;
 
 namespace shooter02.GameObjects
 {
-    class CBaseWeapon
+    class CBaseWeapon : CGameObject
     {
         // TODO: implement BaseWeapon
+
+        //WeaponPattern
+
+        public virtual void Fire()
+        {
+        }
 
     }
 }
