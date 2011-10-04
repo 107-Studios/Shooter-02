@@ -8,7 +8,7 @@ namespace shooter02.Threading
     public enum ChangeMessageType
     {
         UpdateCameraView,
-        UpdateWorldMatrix,
+        UpdatePosition,
         UpdateHighlightColor,
         CreateNewRenderData,
         DeleteRenderData,

@@ -9,16 +9,18 @@ namespace shooter02.Managers
 {
     public class KeyBindings
     {
-        Keys Shoot;
-        Keys MoveLeft;
-        Keys MoveRight;
-        Keys MoveUp;
-        Keys MoveDown;
+        public Keys Shoot;
+        public Keys Combine;
+        public Keys MoveLeft;
+        public Keys MoveRight;
+        public Keys MoveUp;
+        public Keys MoveDown;
 
         // constructor
         public KeyBindings()
         {
            Shoot = Keys.J;
+           Combine = Keys.K;
            MoveLeft = Keys.A;
            MoveRight = Keys.D;
            MoveUp = Keys.W;
@@ -28,16 +30,18 @@ namespace shooter02.Managers
 
     public class ButtonBindings
     {
-        Buttons Shoot;
-        Buttons MoveLeft;
-        Buttons MoveRight;
-        Buttons MoveUp;
-        Buttons MoveDown;
+        public Buttons Shoot;
+        public Buttons Combine;
+        public Buttons MoveLeft;
+        public Buttons MoveRight;
+        public Buttons MoveUp;
+        public Buttons MoveDown;
 
         // constructor
         public ButtonBindings()
         {
             Shoot = Buttons.A;
+            Combine = Buttons.RightShoulder;
             MoveLeft = Buttons.DPadLeft;
             MoveRight = Buttons.DPadRight;
             MoveUp = Buttons.DPadUp;

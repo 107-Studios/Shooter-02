@@ -17,5 +17,10 @@ namespace shooter02.Managers
         {
             base.Update(gameTime);
         }
+
+        public void addChangeMessage(ChangeMessage msg)
+        {
+            messageBuffer.Add(msg);
+        }
     }
 }

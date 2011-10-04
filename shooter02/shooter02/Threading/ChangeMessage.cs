@@ -26,16 +26,14 @@ namespace shooter02.Threading
 
         // this is required when the message is of type UpdateWorldMatrix
         [FieldOffset(8)]
-        public Matrix WorldMatrix;
+        public Vector2 Position;
 
         // this is required when the message is of type UpdateHighlightColor
         [FieldOffset(8)]
         public Vector4 HighlightColor;
 
         // this is required when the message is of type CreateNewRenderData
-        [FieldOffset(8)]
-        public Vector3 Position;
-        [FieldOffset(20)]
+        [FieldOffset(16)]
         public Vector3 Color;
 
         // nothing extra is needed for the message type DeleteRenderData

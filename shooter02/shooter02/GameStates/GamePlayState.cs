@@ -68,5 +68,10 @@ namespace shooter02.GameStates
             //wait for update thread to finish and signal a new frame will begin soon
             doubleBuffer.GlobalSync();
         }
+
+        public void addMessage(ChangeMessage msg)
+        {
+            updateManager.addChangeMessage(msg);
+        }
     }
 }
