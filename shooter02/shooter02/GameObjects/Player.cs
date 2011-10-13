@@ -96,8 +96,7 @@ namespace shooter02.GameObjects
 
             // Make a new message
             ChangeMessage msg = new ChangeMessage();
-            // TODO: design system to handle objects
-            //msg.ID
+            msg.ID = nId;
             msg.MessageType = ChangeMessageType.UpdatePosition;
             msg.Position = m_pUpdateData.position;
             GamePlayState.Instance.addMessage(msg);

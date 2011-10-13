@@ -55,7 +55,7 @@ namespace shooter02.ObjectManager
             if (addObject == null)
                 return;
 
-            addObject.ListID = objectList.Count;
+            addObject.setListID(objectList.Count);
             objectList.Add(addObject);
         }
 

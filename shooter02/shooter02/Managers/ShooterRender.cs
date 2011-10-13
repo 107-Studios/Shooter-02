@@ -25,8 +25,6 @@ namespace shooter02.Managers
                 {
                     case ChangeMessageType.UpdateCameraView:
                         break;
-                    case ChangeMessageType.UpdateWorldMatrix:
-                        break;
                     case ChangeMessageType.UpdateHighlightColor:
                         break;
                     case ChangeMessageType.CreateNewRenderData:
