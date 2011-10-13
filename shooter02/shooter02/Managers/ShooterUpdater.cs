@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using shooter02.Threading;
 using Microsoft.Xna.Framework;
+using shooter02.ObjectManager;
 
 namespace shooter02.Managers
 {
@@ -16,6 +17,8 @@ namespace shooter02.Managers
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            CObjectManager.Instance.Update(gameTime.ElapsedGameTime.TotalSeconds);
         }
 
         public void addChangeMessage(ChangeMessage msg)

@@ -31,7 +31,7 @@ namespace shooter02.GameObjects
             nId = newID;
         }
 
-        public virtual void Update(float fTimeElapsed)
+        public virtual void Update(double fTimeElapsed)
         {
 
         }

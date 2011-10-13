@@ -127,6 +127,7 @@
     <Compile Include="Interfaces\GameState.cs" />
     <Compile Include="Managers\AudioManager.cs" />
     <Compile Include="Managers\InputManager.cs" />
+    <Compile Include="Managers\ObjectFactory.cs" />
     <Compile Include="Managers\ShooterRender.cs" />
     <Compile Include="Managers\ShooterUpdater.cs" />
     <Compile Include="Managers\StateManager.cs" />

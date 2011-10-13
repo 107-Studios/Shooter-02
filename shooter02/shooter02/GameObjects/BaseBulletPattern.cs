@@ -9,7 +9,7 @@ namespace shooter02.GameObjects
     {
         #region CGameObject Members
 
-        public override void Update(float fTimeElapsed)
+        public override void Update(double fTimeElapsed)
         {
             base.Update(fTimeElapsed);
         }

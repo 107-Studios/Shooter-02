@@ -42,7 +42,7 @@ namespace shooter02.ObjectManager
             objectList.Clear();
         }
 
-        public void Update(float fElapsedTime)
+        public void Update(double fElapsedTime)
         {
             for (int i = 0; i < objectList.Count; ++i)
             {
