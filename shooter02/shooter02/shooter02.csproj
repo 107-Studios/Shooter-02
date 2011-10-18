@@ -126,7 +126,12 @@
     <Compile Include="GameStates\MainMenuState.cs" />
     <Compile Include="Interfaces\GameState.cs" />
     <Compile Include="Managers\AudioManager.cs" />
+    <Compile Include="Managers\Events\Event.cs" />
+    <Compile Include="Managers\Events\EventManager.cs" />
+    <Compile Include="Managers\Events\EventObject.cs" />
+    <Compile Include="Managers\Events\IListener.cs" />
     <Compile Include="Managers\InputManager.cs" />
+    <Compile Include="Managers\ObjectFactory.cs" />
     <Compile Include="Managers\ShooterRender.cs" />
     <Compile Include="Managers\ShooterUpdater.cs" />
     <Compile Include="Managers\StateManager.cs" />
