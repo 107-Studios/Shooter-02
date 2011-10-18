@@ -10,8 +10,8 @@ namespace shooter02.ObjectManager
     {
         static readonly CObjectManager instance = new CObjectManager();
 
-        private List<CGameObject> objectList;
-        
+        private LinkedList<CGameObject> objectList;
+
         public CObjectManager()
         {
             objectList = null;
@@ -31,7 +31,7 @@ namespace shooter02.ObjectManager
         /// </summary>
         public void Initialize()
         {
-            objectList = new List<CGameObject>();
+            objectList = new LinkedList<CGameObject>();
         }
 
         /// <summary>
@@ -42,26 +42,74 @@ namespace shooter02.ObjectManager
             objectList.Clear();
         }
 
-        public void Update(float fElapsedTime)
+        /// <summary>
+        /// Calls each object's update function
+        /// </summary>
+        /// <param name="fElapsedTime">The amount of time that has passed since last frame</param>
+        public void Update(double fElapsedTime)
         {
-            for (int i = 0; i < objectList.Count; ++i)
-            {
-                objectList[i].Update(fElapsedTime);
-            }
+            LinkedList<CGameObject>.Enumerator enumerator = objectList.GetEnumerator();
+            for ( ; enumerator.Current.Equals(null) == false; enumerator.MoveNext())
+                if (false == enumerator.Current.getIsDirty())
+                    enumerator.Current.Update(fElapsedTime);
         }
 
-        public void AddObject(CGameObject addObject)
+        /// <summary>
+        /// Adds a new object to the objectList
+        /// </summary>
+        /// <param name="newObject">The new object to be added to the objectList</param>
+        public void AddObject(CGameObject newObject)
         {
-            if (addObject == null)
+            // don't add nothing
+            if (newObject == null)
                 return;
 
-            addObject.setListID(objectList.Count);
-            objectList.Add(addObject);
+            // no duplicates
+            if (objectList.Contains(newObject))
+                return;
+
+            // Add object to objectList
+            newObject.setListID(objectList.Count);
+            objectList.AddLast(newObject);
         }
 
+        /// <summary>
+        /// Removes the specified object.
+        /// </summary>
+        /// <param name="removeObject">The object to remove</param>
         public void RemoveObject(CGameObject removeObject)
         {
+            // don't remove nothing
+            if (removeObject == null)
+                return;
+
+            // Find the object to remove
+            LinkedListNode<CGameObject> current = objectList.Find(removeObject);
+
+            // If object wasn't found, leave.
+            if (current == null)
+                return;
+
+            // Set objects after the object to be removed to the correct listIndex.
+            for (; current.Value.Equals(null) == false; current = current.Next)
+                current.Value.setListID(current.Value.getListID() - 1);
+
+            // Remove the object from the objectList
             objectList.Remove(removeObject);
+        }
+
+        /// <summary>
+        /// Removes an object at the specified index.
+        /// </summary>
+        /// <param name="index">The index of the object to remove.</param>
+        public void RemoveAt(int index)
+        {
+            // If index is invalid, leave.
+            if (index >= objectList.Count || index < 0)
+                return;
+
+            // Remove the object
+            RemoveObject(objectList.ElementAt(index));
         }
     }
 }

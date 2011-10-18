@@ -13,12 +13,18 @@ namespace shooter02.GameObjects
         protected UpdateData m_pUpdateData;
         protected RenderData m_pRenderData;
         protected int nId;
+        protected bool bIsDirty = false;
 
         public CGameObject()
         {
             m_pUpdateData = new UpdateData();
             m_pRenderData = new RenderData();
             nId = -1;
+        }
+
+        public bool getIsDirty()
+        {
+            return bIsDirty;
         }
 
         public int getListID()
@@ -31,7 +37,7 @@ namespace shooter02.GameObjects
             nId = newID;
         }
 
-        public virtual void Update(float fTimeElapsed)
+        public virtual void Update(double fTimeElapsed)
         {
 
         }

@@ -14,53 +14,66 @@ namespace shooter02.GameObjects
         // TODO: implement CPlayer
         protected CBaseWeapon baseWeapon;
         protected CPlayer secondaryPlayer;
-        protected float movementSpeed;
-        protected float combineSpeed;
+        protected double movementSpeed;
+        protected double combineSpeed;
         protected KeyBindings keyboardBindings;
         protected ButtonBindings gamepadBindings;
         protected PlayerIndex playerIndex;
 
         public CPlayer()
         {
+            baseWeapon = new CBaseWeapon();
+            movementSpeed = 10.0;
+            combineSpeed = 5.0;
+            keyboardBindings = new KeyBindings();
+            gamepadBindings = new ButtonBindings();
+
+            // Object Factory will take care of the following
+            // - playerIndex
         }
 
-        public virtual void Input(float fTimeElapsed)
+        public void setPlayerIndex(PlayerIndex index)
+        {
+            playerIndex = index;
+        }
+
+        public virtual void Input(double fTimeElapsed)
         {
             // TODO: FIX: Make sure to only accept keyboard input if player one is not using a gamepad
             if (InputManager.Instance.KeyDown(keyboardBindings.MoveLeft) ||
                 InputManager.Instance.GamePadDown(playerIndex, gamepadBindings.MoveLeft))
             {
                 if (null == secondaryPlayer)
-                    m_pUpdateData.velocity.X -= (movementSpeed * fTimeElapsed);
+                    m_pUpdateData.velocity.X -= (float)(movementSpeed * fTimeElapsed);
                 else
-                    m_pUpdateData.velocity.X -= (combineSpeed * fTimeElapsed);
+                    m_pUpdateData.velocity.X -= (float)(combineSpeed * fTimeElapsed);
             }
 
             if (InputManager.Instance.KeyDown(keyboardBindings.MoveRight) ||
                 InputManager.Instance.GamePadDown(playerIndex, gamepadBindings.MoveRight))
             {
                 if (null == secondaryPlayer)
-                    m_pUpdateData.velocity.X += (movementSpeed * fTimeElapsed);
+                    m_pUpdateData.velocity.X += (float)(movementSpeed * fTimeElapsed);
                 else
-                    m_pUpdateData.velocity.X += (combineSpeed * fTimeElapsed);
+                    m_pUpdateData.velocity.X += (float)(combineSpeed * fTimeElapsed);
             }
 
             if (InputManager.Instance.KeyDown(keyboardBindings.MoveUp) ||
                 InputManager.Instance.GamePadDown(playerIndex, gamepadBindings.MoveUp))
             {
                 if (null == secondaryPlayer)
-                    m_pUpdateData.velocity.Y -= (movementSpeed * fTimeElapsed);
+                    m_pUpdateData.velocity.Y -= (float)(movementSpeed * fTimeElapsed);
                 else
-                    m_pUpdateData.velocity.Y -= (combineSpeed * fTimeElapsed);
+                    m_pUpdateData.velocity.Y -= (float)(combineSpeed * fTimeElapsed);
             }
 
             if (InputManager.Instance.KeyDown(keyboardBindings.MoveDown) ||
                 InputManager.Instance.GamePadDown(playerIndex, gamepadBindings.MoveDown))
             {
                 if (null == secondaryPlayer)
-                    m_pUpdateData.velocity.Y += (movementSpeed * fTimeElapsed);
+                    m_pUpdateData.velocity.Y += (float)(movementSpeed * fTimeElapsed);
                 else
-                    m_pUpdateData.velocity.Y += (movementSpeed * fTimeElapsed);
+                    m_pUpdateData.velocity.Y += (float)(movementSpeed * fTimeElapsed);
             }
 
             if (InputManager.Instance.KeyDown(keyboardBindings.Shoot) ||
@@ -81,10 +94,11 @@ namespace shooter02.GameObjects
 
         }
 
-        public override void Update(float fTimeElapsed)
+        public override void Update(double fTimeElapsed)
         {
             base.Update(fTimeElapsed);
 
+            // Handle user input
             Input(fTimeElapsed);
 
             // early out if no movement

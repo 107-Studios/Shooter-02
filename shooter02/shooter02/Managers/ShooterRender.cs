@@ -6,6 +6,7 @@ using shooter02.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using shooter02.Managers;
+using shooter02.ObjectManager;
 
 namespace shooter02.Managers
 {
@@ -19,9 +20,9 @@ namespace shooter02.Managers
         public override void Draw(GameTime gameTime)
         {
             // Before we render, update the RenderData if needed
-            foreach (ChangeMessage msg in messageBuffer.Messages)
+            for (int i = 0; i < messageBuffer.Messages.Count; ++i)
             {
-                switch (msg.MessageType)
+                switch (messageBuffer.Messages[i].MessageType)
                 {
                     case ChangeMessageType.UpdateCameraView:
                         break;
@@ -30,12 +31,13 @@ namespace shooter02.Managers
                     case ChangeMessageType.CreateNewRenderData:
                         break;
                     case ChangeMessageType.DeleteRenderData:
+                        RenderDataObjects.RemoveAt(i);
+                        CObjectManager.Instance.RemoveAt(i);
                         break;
                     default:
                         break;
                 }
             }
-
             // Now that we have all the RenderData updated, lets render!
             foreach (RenderData item in RenderDataObjects)
             {
