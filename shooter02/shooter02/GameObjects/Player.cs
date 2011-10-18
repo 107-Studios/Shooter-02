@@ -98,6 +98,7 @@ namespace shooter02.GameObjects
         {
             base.Update(fTimeElapsed);
 
+            // Handle user input
             Input(fTimeElapsed);
 
             // early out if no movement
