@@ -6,10 +6,11 @@ using shooter02.Managers;
 using Microsoft.Xna.Framework;
 using shooter02.Threading;
 using shooter02.GameStates;
+using shooter02.Managers.Events;
 
 namespace shooter02.GameObjects
 {
-    class CPlayer : CGameObject
+    class CPlayer : CGameObject, IListener
     {
         // TODO: implement CPlayer
         protected CBaseWeapon baseWeapon;
@@ -19,6 +20,7 @@ namespace shooter02.GameObjects
         protected KeyBindings keyboardBindings;
         protected ButtonBindings gamepadBindings;
         protected PlayerIndex playerIndex;
+        protected bool m_bPrimaryPlayer;
 
         public CPlayer()
         {
@@ -27,9 +29,16 @@ namespace shooter02.GameObjects
             combineSpeed = 5.0;
             keyboardBindings = new KeyBindings();
             gamepadBindings = new ButtonBindings();
+            m_bPrimaryPlayer = false;
 
             // Object Factory will take care of the following
             // - playerIndex
+        }
+
+        public void setSecondaryPlayer(CPlayer _player = null, bool primary = false)
+        {
+            secondaryPlayer = _player;
+            m_bPrimaryPlayer = primary;
         }
 
         public void setPlayerIndex(PlayerIndex index)
@@ -45,8 +54,15 @@ namespace shooter02.GameObjects
             {
                 if (null == secondaryPlayer)
                     m_pUpdateData.velocity.X -= (float)(movementSpeed * fTimeElapsed);
-                else
+                else if (m_bPrimaryPlayer)
+                {
                     m_pUpdateData.velocity.X -= (float)(combineSpeed * fTimeElapsed);
+                    secondaryPlayer.m_pUpdateData.velocity = this.m_pUpdateData.velocity;
+                }
+                else
+                {
+                    // TODO: Update Player shield.
+                }
             }
 
             if (InputManager.Instance.KeyDown(keyboardBindings.MoveRight) ||
@@ -54,8 +70,15 @@ namespace shooter02.GameObjects
             {
                 if (null == secondaryPlayer)
                     m_pUpdateData.velocity.X += (float)(movementSpeed * fTimeElapsed);
-                else
+                else if (m_bPrimaryPlayer)
+                {
                     m_pUpdateData.velocity.X += (float)(combineSpeed * fTimeElapsed);
+                    secondaryPlayer.m_pUpdateData.velocity = this.m_pUpdateData.velocity;
+                }
+                else
+                {
+                    // TODO: Update Player shield.
+                }
             }
 
             if (InputManager.Instance.KeyDown(keyboardBindings.MoveUp) ||
@@ -63,8 +86,11 @@ namespace shooter02.GameObjects
             {
                 if (null == secondaryPlayer)
                     m_pUpdateData.velocity.Y -= (float)(movementSpeed * fTimeElapsed);
-                else
+                else if (m_bPrimaryPlayer)
+                {
                     m_pUpdateData.velocity.Y -= (float)(combineSpeed * fTimeElapsed);
+                    secondaryPlayer.m_pUpdateData.velocity = this.m_pUpdateData.velocity;
+                }
             }
 
             if (InputManager.Instance.KeyDown(keyboardBindings.MoveDown) ||
@@ -72,26 +98,28 @@ namespace shooter02.GameObjects
             {
                 if (null == secondaryPlayer)
                     m_pUpdateData.velocity.Y += (float)(movementSpeed * fTimeElapsed);
-                else
+                else if (m_bPrimaryPlayer)
+                {
                     m_pUpdateData.velocity.Y += (float)(movementSpeed * fTimeElapsed);
+                    secondaryPlayer.m_pUpdateData.velocity = this.m_pUpdateData.velocity;
+                }
             }
 
             if (InputManager.Instance.KeyDown(keyboardBindings.Shoot) ||
                 InputManager.Instance.GamePadDown(playerIndex, gamepadBindings.Shoot))
             {
-                baseWeapon.Fire();
+                if (secondaryPlayer == null || m_bPrimaryPlayer)
+                    baseWeapon.Fire();
             }
 
             if (InputManager.Instance.KeyPressed(keyboardBindings.Combine) ||
                 InputManager.Instance.GamePadPress(playerIndex, gamepadBindings.Combine))
             {
                 if (null == secondaryPlayer)
-                    handleCombineRequest();
+                    sendCombineRequest();
                 else
-                    detachPlayer(secondaryPlayer);
+                    detachPlayer();
             }
-
-
         }
 
         public override void Update(double fTimeElapsed)
@@ -123,16 +151,41 @@ namespace shooter02.GameObjects
             base.HandleCollision(gameObject);
         }
 
-        public virtual bool handleCombineRequest()
+        public virtual bool sendCombineRequest()
         {
-            // TODO: Make sure a second player is within range, combine with player.
+            // Send a request to combine with another player
+            EventManager.Instance.SendEvent(EVENT_ID.PLAYER_COMBINE, this);
             return false;
         }
 
-        public virtual void detachPlayer(CPlayer secondPlayer)
+        public virtual void detachPlayer()
         {
-            // TODO: handle detaching from player and notify the other player to detach as well.
+            // handle detaching from player and notify the other player to detach as well.
+            secondaryPlayer.setSecondaryPlayer();
+            setSecondaryPlayer();
         }
-        
+
+        /// <summary>
+        /// HandleEvent
+        /// </summary>
+        /// <param name="_event"></param>
+        public void HandleEvent(CEvent _event)
+        {
+            switch (_event.GetEventID())
+            {
+                case EVENT_ID.PLAYER_COMBINE:
+                    {
+                        if (_event.GetParam() is CPlayer && _event.GetParam() != this)
+                        {
+                            // TODO: Check to see if were within range of the calling player
+                            setSecondaryPlayer((CPlayer)_event.GetParam(), true);
+                            secondaryPlayer.setSecondaryPlayer(this);
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

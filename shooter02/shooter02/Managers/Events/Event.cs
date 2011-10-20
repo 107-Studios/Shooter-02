@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using shooter02.GameObjects;
+﻿
 
 namespace shooter02.Managers.Events
 {
-    enum EVENT_ID : short { BAD_EVENT = -1, GAME_OVER = 0, COMBINE_PLAYER, NUM_EVENTS };
+    public enum EVENT_ID : short { BAD_EVENT = -1, 
+                                   GAME_OVER = 0, 
+                                   PLAYER_COMBINE,
+                                   NUM_EVENTS };
 
     class CEvent
     {
@@ -26,6 +25,6 @@ namespace shooter02.Managers.Events
         }
 
         public IListener GetParam() { return mParam; }
-        public short GetEventID() { return (short)mID; }
+        public EVENT_ID GetEventID() { return mID; }
     }
 }
