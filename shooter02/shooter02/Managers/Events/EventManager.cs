@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace shooter02.Managers.Events
 {
     class EventManager
     {
+        static readonly EventManager instance = new EventManager();
+        public static EventManager Instance { get { return instance; } }
+
         private EventObject[] mEvents;
         private List<CEvent> mEventList;
 
@@ -37,7 +37,7 @@ namespace shooter02.Managers.Events
             while (mEventList.Count > 0)
             {
                 // Get which event needs to be called
-                short index = mEventList[0].GetEventID();
+                short index = (short)mEventList[0].GetEventID();
                 // Tell it to dispatch the event to its objects
                 mEvents[index].DisptchEvent(mEventList[0]);
                 // Remove the event since we've handled it
@@ -79,7 +79,7 @@ namespace shooter02.Managers.Events
 
         /// <summary>
         /// SendEvent
-        /// Allows objects to send events
+        /// Queues the event to be processed
         /// </summary>
         /// <param name="eventID"></param>
         /// <param name="obj"></param>

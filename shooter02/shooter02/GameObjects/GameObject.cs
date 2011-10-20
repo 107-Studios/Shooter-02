@@ -10,8 +10,8 @@ namespace shooter02.GameObjects
 {
     class CGameObject
     {
-        private UpdateData m_pUpdateData;
-        private RenderData m_pRenderData;
+        protected UpdateData m_pUpdateData;
+        protected RenderData m_pRenderData;
         protected int nId;
         protected bool bIsDirty = false;
 
