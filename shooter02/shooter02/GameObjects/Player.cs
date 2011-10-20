@@ -23,7 +23,7 @@ namespace shooter02.GameObjects
         public CPlayer()
         {
             baseWeapon = new CBaseWeapon();
-            movementSpeed = 10.0;
+            movementSpeed = 200.0;
             combineSpeed = 5.0;
             keyboardBindings = new KeyBindings();
             gamepadBindings = new ButtonBindings();
@@ -44,36 +44,36 @@ namespace shooter02.GameObjects
                 InputManager.Instance.GamePadDown(playerIndex, gamepadBindings.MoveLeft))
             {
                 if (null == secondaryPlayer)
-                    m_pUpdateData.velocity.X -= (float)(movementSpeed * fTimeElapsed);
+                    UpdateData.velocity.X -= (float)(movementSpeed * fTimeElapsed);
                 else
-                    m_pUpdateData.velocity.X -= (float)(combineSpeed * fTimeElapsed);
+                    UpdateData.velocity.X -= (float)(combineSpeed * fTimeElapsed);
             }
 
             if (InputManager.Instance.KeyDown(keyboardBindings.MoveRight) ||
                 InputManager.Instance.GamePadDown(playerIndex, gamepadBindings.MoveRight))
             {
                 if (null == secondaryPlayer)
-                    m_pUpdateData.velocity.X += (float)(movementSpeed * fTimeElapsed);
+                    UpdateData.velocity.X += (float)(movementSpeed * fTimeElapsed);
                 else
-                    m_pUpdateData.velocity.X += (float)(combineSpeed * fTimeElapsed);
+                    UpdateData.velocity.X += (float)(combineSpeed * fTimeElapsed);
             }
 
             if (InputManager.Instance.KeyDown(keyboardBindings.MoveUp) ||
                 InputManager.Instance.GamePadDown(playerIndex, gamepadBindings.MoveUp))
             {
                 if (null == secondaryPlayer)
-                    m_pUpdateData.velocity.Y -= (float)(movementSpeed * fTimeElapsed);
+                    UpdateData.velocity.Y -= (float)(movementSpeed * fTimeElapsed);
                 else
-                    m_pUpdateData.velocity.Y -= (float)(combineSpeed * fTimeElapsed);
+                    UpdateData.velocity.Y -= (float)(combineSpeed * fTimeElapsed);
             }
 
             if (InputManager.Instance.KeyDown(keyboardBindings.MoveDown) ||
                 InputManager.Instance.GamePadDown(playerIndex, gamepadBindings.MoveDown))
             {
                 if (null == secondaryPlayer)
-                    m_pUpdateData.velocity.Y += (float)(movementSpeed * fTimeElapsed);
+                    UpdateData.velocity.Y += (float)(movementSpeed * fTimeElapsed);
                 else
-                    m_pUpdateData.velocity.Y += (float)(movementSpeed * fTimeElapsed);
+                    UpdateData.velocity.Y += (float)(movementSpeed * fTimeElapsed);
             }
 
             if (InputManager.Instance.KeyDown(keyboardBindings.Shoot) ||
@@ -102,20 +102,20 @@ namespace shooter02.GameObjects
             Input(fTimeElapsed);
 
             // early out if no movement
-            if (m_pUpdateData.velocity == Vector2.Zero)
+            if (UpdateData.velocity == Vector2.Zero)
                 return;
 
             // update position
-            m_pUpdateData.position += m_pUpdateData.velocity;
+            UpdateData.position += UpdateData.velocity;
 
             // Make a new message
             ChangeMessage msg = new ChangeMessage();
             msg.ID = nId;
             msg.MessageType = ChangeMessageType.UpdatePosition;
-            msg.Position = m_pUpdateData.position;
+            msg.Position = UpdateData.position;
             GamePlayState.Instance.addMessage(msg);
 
-            m_pUpdateData.velocity = Vector2.Zero;
+            UpdateData.velocity = Vector2.Zero;
         }
 
         public override void HandleCollision(CGameObject gameObject)

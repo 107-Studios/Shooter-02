@@ -21,14 +21,14 @@ namespace shooter02.Threading
 
         public RenderData()
         {
-            this.drawRectangle = Rectangle.Empty;
-            this.position = Vector2.Zero;
-            this.center = Vector2.Zero;
-            this.scale = Vector2.Zero;
-            this.texture2D = -1;
-            this.textureTint = Color.White;
-            this.rotation = 0.0f;
-            this.effect = SpriteEffects.None;
+            drawRectangle = Rectangle.Empty;
+            position = Vector2.Zero;
+            center = Vector2.Zero;
+            scale = new Vector2(1.0f);
+            texture2D = -1;
+            textureTint = Color.White;
+            rotation = 0.0f;
+            effect = SpriteEffects.None;
         }
     }
 }

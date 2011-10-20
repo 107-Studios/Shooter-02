@@ -29,12 +29,12 @@ namespace shooter02.Threading
         public Vector2 Position;
 
         // this is required when the message is of type UpdateHighlightColor
-        [FieldOffset(8)]
-        public Vector4 HighlightColor;
+        [FieldOffset(16)]
+        public Color HighlightColor;
 
         // this is required when the message is of type CreateNewRenderData
-        [FieldOffset(16)]
-        public Vector3 Color;
+        [FieldOffset(32)]
+        public int texture2D;
 
         // nothing extra is needed for the message type DeleteRenderData
     }

@@ -10,8 +10,8 @@ namespace shooter02.GameObjects
 {
     class CGameObject
     {
-        protected UpdateData m_pUpdateData;
-        protected RenderData m_pRenderData;
+        private UpdateData m_pUpdateData;
+        private RenderData m_pRenderData;
         protected int nId;
         protected bool bIsDirty = false;
 
@@ -20,6 +20,18 @@ namespace shooter02.GameObjects
             m_pUpdateData = new UpdateData();
             m_pRenderData = new RenderData();
             nId = -1;
+        }
+
+        public UpdateData UpdateData
+        {
+            get { return m_pUpdateData; }
+            set { m_pUpdateData = value; }
+        }
+
+        public RenderData RenderData
+        {
+            get { return m_pRenderData; }
+            set { m_pRenderData = value; }
         }
 
         public bool getIsDirty()

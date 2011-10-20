@@ -44,6 +44,7 @@ namespace shooter02
             // Add your initialization logic here
             Resolution.Init(ref graphics);
             graphics.IsFullScreen = SaveInfo.Instance.Fullscreen;
+            ObjectManager.CObjectManager.Instance.Initialize();
 
             base.Initialize();
         }

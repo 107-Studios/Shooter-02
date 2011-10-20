@@ -34,10 +34,16 @@ namespace shooter02.Managers
                         RenderDataObjects.RemoveAt(i);
                         CObjectManager.Instance.RemoveAt(i);
                         break;
+                    case ChangeMessageType.UpdatePosition:
+                        RenderDataObjects.ElementAt(messageBuffer.Messages[i].ID).position = messageBuffer.Messages[i].Position;
+                        break;
                     default:
                         break;
                 }
             }
+
+            messageBuffer.Clear();
+
             // Now that we have all the RenderData updated, lets render!
             foreach (RenderData item in RenderDataObjects)
             {

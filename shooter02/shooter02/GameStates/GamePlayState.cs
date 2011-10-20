@@ -7,6 +7,7 @@ using shooter02.Threading;
 using shooter02.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using shooter02.ObjectManager;
 
 namespace shooter02.GameStates
 {
@@ -38,6 +39,10 @@ namespace shooter02.GameStates
             updateManager = new ShooterUpdater(doubleBuffer, StateManager.Instance.GameInstance);
 
             // load game object's "update/render data" to both the update/render managers
+            shooter02.GameObjects.CPlayer temp = ObjectFactory.createPlayer1();
+            updateManager.GameDataObjects.Add(temp.UpdateData);
+            renderManager.RenderDataObjects.Add(temp.RenderData);
+            ObjectManager.CObjectManager.Instance.AddObject(temp);
 
             // start the update function on a new thread
             updateManager.StartOnNewThread();

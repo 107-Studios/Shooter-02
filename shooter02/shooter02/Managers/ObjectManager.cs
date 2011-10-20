@@ -48,10 +48,9 @@ namespace shooter02.ObjectManager
         /// <param name="fElapsedTime">The amount of time that has passed since last frame</param>
         public void Update(double fElapsedTime)
         {
-            LinkedList<CGameObject>.Enumerator enumerator = objectList.GetEnumerator();
-            for ( ; enumerator.Current.Equals(null) == false; enumerator.MoveNext())
-                if (false == enumerator.Current.getIsDirty())
-                    enumerator.Current.Update(fElapsedTime);
+            for (int i = 0; i < objectList.Count; ++i)
+                if (false == objectList.ElementAt(i).getIsDirty())
+                   objectList.ElementAt(i).Update(fElapsedTime);
         }
 
         /// <summary>
