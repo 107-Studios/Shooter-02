@@ -33,6 +33,8 @@ namespace shooter02.GameObjects
 
             // Object Factory will take care of the following
             // - playerIndex
+
+            EventManager.Instance.RegisterEvent(EVENT_ID.PLAYER_COMBINE, this);
         }
 
         public void setSecondaryPlayer(CPlayer _player = null, bool primary = false)
