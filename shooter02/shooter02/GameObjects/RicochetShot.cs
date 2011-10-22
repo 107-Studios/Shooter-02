@@ -15,5 +15,9 @@ namespace shooter02.GameObjects
         }
 
         #endregion
+
+        public CRicochetShot(CGameObject parent) : base(parent)
+        {
+        }
     }
 }

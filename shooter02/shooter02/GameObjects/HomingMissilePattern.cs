@@ -17,5 +17,8 @@ namespace shooter02.GameObjects
 
         #endregion
 
+        public HomingMissilePattern(CGameObject parent) : base(parent)
+        {
+        }
     }
 }

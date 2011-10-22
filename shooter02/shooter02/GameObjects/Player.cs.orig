@@ -24,17 +24,28 @@ namespace shooter02.GameObjects
 
         public CPlayer()
         {
-            m_cBaseWeapon = new CBaseWeapon(this);
+<<<<<<< HEAD
+            baseWeapon = new CBaseWeapon(this);
+            movementSpeed = 200.0;
+            combineSpeed = 150.0;
+            keyboardBindings = new KeyBindings();
+            gamepadBindings = new ButtonBindings();
+=======
+            m_cBaseWeapon = new CBaseWeapon();
             m_cSecondaryPlayer = null;
             m_dMovementSpeed = 200.0;
             m_dCombineSpeed = 150.0;
             m_cKeyboardBindings = new KeyBindings();
             m_cGamepadBindings = new ButtonBindings();
+>>>>>>> fcf62d89295e07e3d6e7baf3d557a108239aab3a
             m_bPrimaryPlayer = false;
 
             // Object Factory will take care of the following
             // - playerIndex
+<<<<<<< HEAD
 
+=======
+>>>>>>> fcf62d89295e07e3d6e7baf3d557a108239aab3a
             EventManager.Instance.RegisterEvent(EVENT_ID.PLAYER_COMBINE, this);
         }
 

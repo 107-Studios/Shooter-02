@@ -15,5 +15,10 @@ namespace shooter02.GameObjects
         }
 
         #endregion
+
+        public RicochetPattern(CGameObject parent) : base(parent)
+        {
+
+        }
     }
 }

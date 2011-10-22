@@ -15,5 +15,9 @@ namespace shooter02.GameObjects
         }
 
         #endregion
+
+        public CSpreadShot(CGameObject parent) : base(parent)
+        {
+        }
     }
 }
