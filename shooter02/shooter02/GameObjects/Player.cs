@@ -13,51 +13,53 @@ namespace shooter02.GameObjects
     class CPlayer : CGameObject, IListener
     {
         // TODO: implement CPlayer
-        protected CBaseWeapon baseWeapon;
-        protected CPlayer secondaryPlayer;
-        protected double movementSpeed;
-        protected double combineSpeed;
-        protected KeyBindings keyboardBindings;
-        protected ButtonBindings gamepadBindings;
-        protected PlayerIndex playerIndex;
+        protected CBaseWeapon m_cBaseWeapon;
+        protected CPlayer m_cSecondaryPlayer;
+        protected double m_dMovementSpeed;
+        protected double m_dCombineSpeed;
+        protected KeyBindings m_cKeyboardBindings;
+        protected ButtonBindings m_cGamepadBindings;
+        protected PlayerIndex m_ePlayerIndex;
         protected bool m_bPrimaryPlayer;
 
         public CPlayer()
         {
-            baseWeapon = new CBaseWeapon();
-            movementSpeed = 200.0;
-            combineSpeed = 5.0;
-            keyboardBindings = new KeyBindings();
-            gamepadBindings = new ButtonBindings();
+            m_cBaseWeapon = new CBaseWeapon();
+            m_cSecondaryPlayer = null;
+            m_dMovementSpeed = 200.0;
+            m_dCombineSpeed = 150.0;
+            m_cKeyboardBindings = new KeyBindings();
+            m_cGamepadBindings = new ButtonBindings();
             m_bPrimaryPlayer = false;
 
             // Object Factory will take care of the following
             // - playerIndex
+            EventManager.Instance.RegisterEvent(EVENT_ID.PLAYER_COMBINE, this);
         }
 
-        public void setSecondaryPlayer(CPlayer _player = null, bool primary = false)
+        public void SetSecondaryPlayer(CPlayer _player = null, bool primary = false)
         {
-            secondaryPlayer = _player;
+            m_cSecondaryPlayer = _player;
             m_bPrimaryPlayer = primary;
         }
 
-        public void setPlayerIndex(PlayerIndex index)
+        public void SetPlayerIndex(PlayerIndex index)
         {
-            playerIndex = index;
+            m_ePlayerIndex = index;
         }
 
         public virtual void Input(double fTimeElapsed)
         {
             // TODO: FIX: Make sure to only accept keyboard input if player one is not using a gamepad
-            if (InputManager.Instance.KeyDown(keyboardBindings.MoveLeft) ||
-                InputManager.Instance.GamePadDown(playerIndex, gamepadBindings.MoveLeft))
+            if (InputManager.Instance.KeyDown(m_cKeyboardBindings.MoveLeft) ||
+                InputManager.Instance.GamePadDown(m_ePlayerIndex, m_cGamepadBindings.MoveLeft))
             {
-                if (null == secondaryPlayer)
-                    UpdateData.velocity.X -= (float)(movementSpeed * fTimeElapsed);
+                if (null == m_cSecondaryPlayer)
+                    UpdateData.velocity.X -= (float)(m_dMovementSpeed * fTimeElapsed);
                 else if (m_bPrimaryPlayer)
                 {
-                    m_pUpdateData.velocity.X -= (float)(combineSpeed * fTimeElapsed);
-                    secondaryPlayer.m_pUpdateData.velocity = this.m_pUpdateData.velocity;
+                    m_pUpdateData.velocity.X -= (float)(m_dCombineSpeed * fTimeElapsed);
+                    m_cSecondaryPlayer.m_pUpdateData.velocity = this.m_pUpdateData.velocity;
                 }
                 else
                 {
@@ -65,15 +67,15 @@ namespace shooter02.GameObjects
                 }
             }
 
-            if (InputManager.Instance.KeyDown(keyboardBindings.MoveRight) ||
-                InputManager.Instance.GamePadDown(playerIndex, gamepadBindings.MoveRight))
+            if (InputManager.Instance.KeyDown(m_cKeyboardBindings.MoveRight) ||
+                InputManager.Instance.GamePadDown(m_ePlayerIndex, m_cGamepadBindings.MoveRight))
             {
-                if (null == secondaryPlayer)
-                    UpdateData.velocity.X += (float)(movementSpeed * fTimeElapsed);
+                if (null == m_cSecondaryPlayer)
+                    UpdateData.velocity.X += (float)(m_dMovementSpeed * fTimeElapsed);
                 else if (m_bPrimaryPlayer)
                 {
-                    m_pUpdateData.velocity.X += (float)(combineSpeed * fTimeElapsed);
-                    secondaryPlayer.m_pUpdateData.velocity = this.m_pUpdateData.velocity;
+                    m_pUpdateData.velocity.X += (float)(m_dCombineSpeed * fTimeElapsed);
+                    m_cSecondaryPlayer.m_pUpdateData.velocity = this.m_pUpdateData.velocity;
                 }
                 else
                 {
@@ -81,44 +83,44 @@ namespace shooter02.GameObjects
                 }
             }
 
-            if (InputManager.Instance.KeyDown(keyboardBindings.MoveUp) ||
-                InputManager.Instance.GamePadDown(playerIndex, gamepadBindings.MoveUp))
+            if (InputManager.Instance.KeyDown(m_cKeyboardBindings.MoveUp) ||
+                InputManager.Instance.GamePadDown(m_ePlayerIndex, m_cGamepadBindings.MoveUp))
             {
-                if (null == secondaryPlayer)
-                    UpdateData.velocity.Y -= (float)(movementSpeed * fTimeElapsed);
+                if (null == m_cSecondaryPlayer)
+                    UpdateData.velocity.Y -= (float)(m_dMovementSpeed * fTimeElapsed);
                 else if (m_bPrimaryPlayer)
                 {
-                    m_pUpdateData.velocity.Y -= (float)(combineSpeed * fTimeElapsed);
-                    secondaryPlayer.m_pUpdateData.velocity = this.m_pUpdateData.velocity;
+                    m_pUpdateData.velocity.Y -= (float)(m_dCombineSpeed * fTimeElapsed);
+                    m_cSecondaryPlayer.m_pUpdateData.velocity = this.m_pUpdateData.velocity;
                 }
             }
 
-            if (InputManager.Instance.KeyDown(keyboardBindings.MoveDown) ||
-                InputManager.Instance.GamePadDown(playerIndex, gamepadBindings.MoveDown))
+            if (InputManager.Instance.KeyDown(m_cKeyboardBindings.MoveDown) ||
+                InputManager.Instance.GamePadDown(m_ePlayerIndex, m_cGamepadBindings.MoveDown))
             {
-                if (null == secondaryPlayer)
-                    UpdateData.velocity.Y += (float)(movementSpeed * fTimeElapsed);
+                if (null == m_cSecondaryPlayer)
+                    UpdateData.velocity.Y += (float)(m_dMovementSpeed * fTimeElapsed);
                 else if (m_bPrimaryPlayer)
                 {
-                    m_pUpdateData.velocity.Y += (float)(movementSpeed * fTimeElapsed);
-                    secondaryPlayer.m_pUpdateData.velocity = this.m_pUpdateData.velocity;
+                    m_pUpdateData.velocity.Y += (float)(m_dMovementSpeed * fTimeElapsed);
+                    m_cSecondaryPlayer.m_pUpdateData.velocity = this.m_pUpdateData.velocity;
                 }
             }
 
-            if (InputManager.Instance.KeyDown(keyboardBindings.Shoot) ||
-                InputManager.Instance.GamePadDown(playerIndex, gamepadBindings.Shoot))
+            if (InputManager.Instance.KeyDown(m_cKeyboardBindings.Shoot) ||
+                InputManager.Instance.GamePadDown(m_ePlayerIndex, m_cGamepadBindings.Shoot))
             {
-                if (secondaryPlayer == null || m_bPrimaryPlayer)
-                    baseWeapon.Fire();
+                if (m_cSecondaryPlayer == null || m_bPrimaryPlayer)
+                    m_cBaseWeapon.Fire();
             }
 
-            if (InputManager.Instance.KeyPressed(keyboardBindings.Combine) ||
-                InputManager.Instance.GamePadPress(playerIndex, gamepadBindings.Combine))
+            if (InputManager.Instance.KeyPressed(m_cKeyboardBindings.Combine) ||
+                InputManager.Instance.GamePadPress(m_ePlayerIndex, m_cGamepadBindings.Combine))
             {
-                if (null == secondaryPlayer)
-                    sendCombineRequest();
+                if (null == m_cSecondaryPlayer)
+                    SendCombineRequest();
                 else
-                    detachPlayer();
+                    DetachPlayer();
             }
 
 
@@ -153,18 +155,18 @@ namespace shooter02.GameObjects
             base.HandleCollision(gameObject);
         }
 
-        public virtual bool sendCombineRequest()
+        public virtual bool SendCombineRequest()
         {
             // Send a request to combine with another player
             EventManager.Instance.SendEvent(EVENT_ID.PLAYER_COMBINE, this);
             return false;
         }
 
-        public virtual void detachPlayer()
+        public virtual void DetachPlayer()
         {
             // handle detaching from player and notify the other player to detach as well.
-            secondaryPlayer.setSecondaryPlayer();
-            setSecondaryPlayer();
+            m_cSecondaryPlayer.SetSecondaryPlayer();
+            SetSecondaryPlayer();
         }
 
         /// <summary>
@@ -180,8 +182,9 @@ namespace shooter02.GameObjects
                         if (_event.GetParam() is CPlayer && _event.GetParam() != this)
                         {
                             // TODO: Check to see if were within range of the calling player
-                            setSecondaryPlayer((CPlayer)_event.GetParam(), true);
-                            secondaryPlayer.setSecondaryPlayer(this);
+                            SetSecondaryPlayer((CPlayer)_event.GetParam(), true);
+                            m_cSecondaryPlayer.SetSecondaryPlayer(this);
+                            m_cSecondaryPlayer.m_pUpdateData.position = m_pUpdateData.position;
                         }
                     }
                     break;

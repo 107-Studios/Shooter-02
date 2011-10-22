@@ -14,6 +14,9 @@ namespace shooter02.Managers.Events
         {
             mEvents = new EventObject[(short)EVENT_ID.NUM_EVENTS];
             mEventList = new List<CEvent>();
+
+            for (int i = 0; i < (int)EVENT_ID.NUM_EVENTS; ++i)
+                mEvents[i] = new EventObject();
         }
 
         /// <summary>
