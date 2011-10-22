@@ -9,10 +9,17 @@ namespace shooter02.GameObjects
     {
         // TODO: implement BaseWeapon
 
-        //WeaponPattern
+        BaseBulletPattern m_pBulletPattern;
+
+        public CBaseWeapon(CGameObject parent) : base()
+        {
+            m_pParent = parent;
+            m_pBulletPattern = new BaseBulletPattern(this);
+        }
 
         public virtual void Fire()
         {
+            m_pBulletPattern.emitPattern();
         }
 
     }

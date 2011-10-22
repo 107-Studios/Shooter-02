@@ -14,14 +14,22 @@ namespace shooter02.GameObjects
         protected RenderData m_pRenderData;
         protected int nId;
         protected bool bIsDirty = false;
+        protected CGameObject m_pParent;
 
         public CGameObject()
         {
             m_pUpdateData = new UpdateData();
             m_pRenderData = new RenderData();
+            m_pParent = null;
             nId = -1;
         }
 
+        protected CGameObject Parent
+        {
+            get { return m_pParent; }
+            set { m_pParent = value; }
+        }
+        
         public UpdateData UpdateData
         {
             get { return m_pUpdateData; }

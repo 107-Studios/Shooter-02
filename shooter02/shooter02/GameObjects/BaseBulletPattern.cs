@@ -21,6 +21,11 @@ namespace shooter02.GameObjects
 
         #endregion
 
+        public BaseBulletPattern(CGameObject parent) : base()
+        {
+            m_pParent = parent;
+        }
+        
         public virtual void emitPattern()
         {
         }

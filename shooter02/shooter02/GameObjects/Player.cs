@@ -24,9 +24,9 @@ namespace shooter02.GameObjects
 
         public CPlayer()
         {
-            baseWeapon = new CBaseWeapon();
+            baseWeapon = new CBaseWeapon(this);
             movementSpeed = 200.0;
-            combineSpeed = 5.0;
+            combineSpeed = 150.0;
             keyboardBindings = new KeyBindings();
             gamepadBindings = new ButtonBindings();
             m_bPrimaryPlayer = false;
