@@ -15,6 +15,8 @@ namespace shooter02.GameObjects
         // TODO: implement CPlayer
         protected CBaseWeapon m_cBaseWeapon;
         protected CPlayer m_cSecondaryPlayer;
+        protected double m_dNumLives;
+        protected double m_dScore;
         protected double m_dMovementSpeed;
         protected double m_dCombineSpeed;
         protected KeyBindings m_cKeyboardBindings;
@@ -26,6 +28,8 @@ namespace shooter02.GameObjects
         {
             m_cBaseWeapon = new CBaseWeapon(this);
             m_cSecondaryPlayer = null;
+            m_dNumLives = 3;
+            m_dScore = 0;
             m_dMovementSpeed = 200.0;
             m_dCombineSpeed = 150.0;
             m_cKeyboardBindings = new KeyBindings();
@@ -192,6 +196,37 @@ namespace shooter02.GameObjects
                 default:
                     break;
             }
+        }
+
+        public shooter02.GameObjects.CBaseWeapon BaseWeapon
+        {
+            get { return m_cBaseWeapon; }
+            set { m_cBaseWeapon = value; }
+        }
+
+        public double Score
+        {
+            get { return m_dScore; }
+            set { m_dScore = value; }
+        }
+
+
+        public shooter02.Managers.KeyBindings KeyboardBindings
+        {
+            get { return m_cKeyboardBindings; }
+            set { m_cKeyboardBindings = value; }
+        }
+
+        public Microsoft.Xna.Framework.PlayerIndex PlayerIndex
+        {
+            get { return m_ePlayerIndex; }
+            set { m_ePlayerIndex = value; }
+        }
+
+        public shooter02.Managers.ButtonBindings GamepadBindings
+        {
+            get { return m_cGamepadBindings; }
+            set { m_cGamepadBindings = value; }
         }
     }
 }

@@ -45,8 +45,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="textures\fightersprite2.png">
+      <Name>fightersprite2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="textures\fightersprite1.png">
       <Name>fightersprite1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\fightersprite3.png">
+      <Name>fightersprite3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="textures\fightersprite4.png">
+      <Name>fightersprite4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
